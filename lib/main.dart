@@ -10,36 +10,54 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("latihan input"),
-        ),
-        body: Container(
-          margin: EdgeInsets.all(15),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              TextField(
-                decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.person),
-                    hintText: "Name ",
-                    hintStyle: TextStyle(fontWeight: FontWeight.w700),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10))),
-                onChanged: (value) {
-                  setState(() {});
-                },
-                controller: controller,
-              ),
-              Text(controller.text)
-            ],
-          ),
-        ),
-      ),
+      home: HomePage(),
     );
+  }
+}
+
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("latihan media query"),
+        ),
+        body: (MediaQuery.of(context).orientation == Orientation.portrait)
+            ? Column(
+                children: genContainer,
+              )
+            : Row(
+                children: genContainer,
+              ));
+  }
+
+  List<Widget> get genContainer {
+    return <Widget>[
+      Container(
+        color: Colors.red,
+        width: 100,
+        height: 100,
+      ),
+      Container(
+        color: Colors.green,
+        width: 100,
+        height: 100,
+      ),
+      Container(
+        color: Colors.blue,
+        width: 100,
+        height: 100,
+      ),
+    ];
   }
 }
