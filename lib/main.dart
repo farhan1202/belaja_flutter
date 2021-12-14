@@ -13,51 +13,50 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
-
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+      home: Scaffold(
         appBar: AppBar(
-          title: Text("latihan media query"),
+          title: Text("inkwell"),
         ),
-        body: (MediaQuery.of(context).orientation == Orientation.portrait)
-            ? Column(
-                children: genContainer,
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              RaisedButton(
+                shape: StadiumBorder(),
+                onPressed: () {},
+                child: Text("raised button"),
+                color: Colors.amber,
+              ),
+              Container(
+                width: 150,
+                height: 50,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  gradient: LinearGradient(
+                      colors: [Colors.purple, Colors.pink],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter),
+                ),
+                child: Material(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: () {},
+                    borderRadius: BorderRadius.circular(20),
+                    child: Center(
+                      child: Text(
+                        "Mybutton",
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                  ),
+                ),
               )
-            : Row(
-                children: genContainer,
-              ));
-  }
-
-  List<Widget> get genContainer {
-    return <Widget>[
-      Container(
-        color: Colors.red,
-        width: 100,
-        height: 100,
+            ],
+          ),
+        ),
       ),
-      Container(
-        color: Colors.green,
-        width: 100,
-        height: 100,
-      ),
-      Container(
-        color: Colors.blue,
-        width: 100,
-        height: 100,
-      ),
-    ];
+    );
   }
 }
