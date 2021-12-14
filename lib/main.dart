@@ -14,7 +14,32 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: LoginPage(),
+      home: Scaffold(
+        appBar: AppBar(
+          leading: Icon(
+            Icons.ac_unit,
+            color: Colors.white,
+          ),
+          title: Text("Appbar Costume"),
+          actions: <Widget>[
+            IconButton(onPressed: () {}, icon: Icon(Icons.settings)),
+            IconButton(onPressed: () {}, icon: Icon(Icons.exit_to_app))
+          ],
+          flexibleSpace: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: FractionalOffset.topLeft,
+                  end: FractionalOffset.bottomRight,
+                  colors: [Color(0xff0096ff), Color(0xff6610f2)]),
+              // image: DecorationImage(
+              //     image: NetworkImage(
+              //         "https://png.pngtree.com/png-clipart/20190515/original/pngtree-beautiful-cube-pattern-png-image_3633077.jpg"),
+              //     fit: BoxFit.none,
+              //     repeat: ImageRepeat.repeat)
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
