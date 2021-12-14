@@ -18,19 +18,19 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text("image widget"),
+          title: Text("Spaces widget"),
         ),
         body: Center(
-          child: Container(
-            color: Colors.black,
-            width: 200,
-            height: 300,
-            padding: EdgeInsets.all(3),
-            child: Image(
-              image: NetworkImage(
-                  "https://s4.anilist.co/file/anilistcdn/character/large/b131619-pOu8tYzf1WXl.png"),
-              fit: BoxFit.fill,
-            ),
+          child: Row(
+            children: <Widget>[
+              Container(width: 80, height: 80, color: Colors.red),
+              Spacer(
+                flex: 1,
+              ),
+              Container(width: 80, height: 80, color: Colors.green),
+              Spacer(flex: 1),
+              Container(width: 80, height: 80, color: Colors.blue),
+            ],
           ),
         ),
       ),
