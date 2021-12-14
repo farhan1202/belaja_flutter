@@ -24,6 +24,12 @@ class _MyAppState extends State<MyApp> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               TextField(
+                decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.person),
+                    hintText: "Name ",
+                    hintStyle: TextStyle(fontWeight: FontWeight.w700),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10))),
                 onChanged: (value) {
                   setState(() {});
                 },
