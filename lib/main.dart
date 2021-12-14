@@ -10,53 +10,22 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  List<Widget> widgetList = [];
-
-  int number = 1;
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text("List View "),
+          title: Text("text style"),
         ),
-        body: ListView(children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              RaisedButton(
-                onPressed: () {
-                  setState(() {
-                    widgetList.add(Text(
-                      "data ke " + number.toString(),
-                      style: TextStyle(fontSize: 35),
-                    ));
-                    number++;
-                  });
-                },
-                child: Text(
-                  "Tambah",
-                ),
-              ),
-              RaisedButton(
-                onPressed: () {
-                  setState(() {
-                    if (number > 1) {
-                      widgetList.removeLast();
-                      number--;
-                    }
-                  });
-                },
-                child: Text("Kurang"),
-              )
-            ],
+        body: Center(
+          child: Text(
+            "ini adalah contoh text ",
+            style: TextStyle(
+                fontFamily: "Freescpt",
+                fontSize: 30,
+                decoration: TextDecoration.underline),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: widgetList,
-          )
-        ]),
+        ),
       ),
     );
   }
