@@ -15,38 +15,119 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text("Latihan flexibel widget"),
+          title: Text("Stack and Align widget"),
         ),
-        body: Column(
+        body: Stack(
           children: <Widget>[
-            Flexible(
-                flex: 1,
-                child: Row(
+            Column(
+              children: <Widget>[
+                Flexible(
+                    flex: 1,
+                    child: Row(
+                      children: <Widget>[
+                        Flexible(flex: 1, child: Container()),
+                        Flexible(
+                            flex: 1,
+                            child: Container(
+                              color: Colors.grey,
+                            )),
+                      ],
+                    )),
+                Flexible(
+                    flex: 1,
+                    child: Row(
+                      children: <Widget>[
+                        Flexible(flex: 1, child: Container(color: Colors.grey)),
+                        Flexible(flex: 1, child: Container()),
+                      ],
+                    ))
+              ],
+            ),
+            ListView(
+              children: <Widget>[
+                Column(
                   children: <Widget>[
-                    Flexible(
-                        flex: 1,
-                        child: Container(
-                            margin: EdgeInsets.all(5), color: Colors.black)),
-                    Flexible(
-                        flex: 1,
-                        child: Container(
-                            margin: EdgeInsets.all(5), color: Colors.amber)),
-                    Flexible(
-                        flex: 1,
-                        child: Container(
-                            margin: EdgeInsets.all(5), color: Colors.green)),
+                    Container(
+                      margin: EdgeInsets.all(15),
+                      child: Text(
+                        "ini adalah text yang ada di lapisan ke 2",
+                        style: TextStyle(fontSize: 30),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(15),
+                      child: Text(
+                        "ini adalah text yang ada di lapisan ke 2",
+                        style: TextStyle(fontSize: 30),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(15),
+                      child: Text(
+                        "ini adalah text yang ada di lapisan ke 2",
+                        style: TextStyle(fontSize: 30),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(15),
+                      child: Text(
+                        "ini adalah text yang ada di lapisan ke 2",
+                        style: TextStyle(fontSize: 30),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(15),
+                      child: Text(
+                        "ini adalah text yang ada di lapisan ke 2",
+                        style: TextStyle(fontSize: 30),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(15),
+                      child: Text(
+                        "ini adalah text yang ada di lapisan ke 2",
+                        style: TextStyle(fontSize: 30),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(15),
+                      child: Text(
+                        "ini adalah text yang ada di lapisan ke 2",
+                        style: TextStyle(fontSize: 30),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(15),
+                      child: Text(
+                        "ini adalah text yang ada di lapisan ke 2",
+                        style: TextStyle(fontSize: 30),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(15),
+                      child: Text(
+                        "ini adalah text yang ada di lapisan ke 2",
+                        style: TextStyle(fontSize: 30),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(15),
+                      child: Text(
+                        "ini adalah text yang ada di lapisan ke 2",
+                        style: TextStyle(fontSize: 30),
+                      ),
+                    ),
                   ],
-                )),
-            Flexible(
-                flex: 2,
-                child:
-                    Container(margin: EdgeInsets.all(5), color: Colors.blue)),
-            Flexible(
-                flex: 1,
-                child: Container(
-                  margin: EdgeInsets.all(5),
-                  color: Colors.yellow,
-                )),
+                )
+              ],
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: RaisedButton(
+                onPressed: null,
+                child: Text("Button"),
+              ),
+            )
           ],
         ),
       ),
