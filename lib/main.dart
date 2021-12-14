@@ -39,6 +39,33 @@ class _MyAppState extends State<MyApp> {
             ),
           ),
         ),
+        backgroundColor: Colors.green,
+        body: Container(
+          margin: EdgeInsets.all(20),
+          child: ListView(
+            children: <Widget>[
+              cardTemplate(Icons.person, "FarHan Hafifi"),
+              cardTemplate(Icons.attach_money, "100.000"),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Card cardTemplate(IconData iconData, String nama) {
+    return Card(
+      elevation: 5,
+      child: Row(
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.all(10),
+            child: Icon(
+              iconData,
+            ),
+          ),
+          Text(nama)
+        ],
       ),
     );
   }
