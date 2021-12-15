@@ -11,7 +11,33 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MainPage(),
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(200),
+          child: AppBar(
+            backgroundColor: Colors.amber,
+            flexibleSpace: Stack(children: [
+              Positioned(
+                bottom: 0,
+                right: 0,
+                child: Container(
+                  margin: EdgeInsets.all(30),
+                  child: Positioned(
+                    child: Text(
+                      "Appbar Racikan",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                ),
+              ),
+            ]),
+          ),
+        ),
+      ),
     );
   }
 }
