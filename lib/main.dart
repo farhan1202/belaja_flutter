@@ -19,16 +19,23 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text("Colorful Button"),
+          title: Text("Gradient Opacity"),
         ),
         body: Center(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              ColorfulButton(Colors.pink, Colors.blue, Icons.adb),
-              ColorfulButton(Colors.blue, Colors.red, Icons.person),
-              ColorfulButton(Colors.red, Colors.green, Icons.book)
-            ],
+          child: ShaderMask(
+            shaderCallback: (bounds) {
+              return LinearGradient(
+                      colors: [Colors.black, Colors.transparent],
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter)
+                  .createShader(
+                      Rect.fromLTRB(0, 0, bounds.width, bounds.height));
+            },
+            blendMode: BlendMode.dstIn,
+            child: Image(
+                width: 300,
+                image: NetworkImage(
+                    "https://cdn.myanimelist.net/images/characters/7/441094.jpg")),
           ),
         ),
       ),
