@@ -12,61 +12,79 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  bool isOn = false;
-  Widget myWidget = Container(
-    width: 200,
-    height: 100,
-    decoration: BoxDecoration(
-        color: Colors.red, border: Border.all(color: Colors.black, width: 3)),
-  );
+  double myPadding = 5;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text("animated swict"),
+          title: Text("animated padding"),
         ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              AnimatedSwitcher(
-                duration: Duration(seconds: 1),
-                child: myWidget,
-                transitionBuilder: (child, animation) => ScaleTransition(
-                  scale: animation,
-                  child: child,
-                ),
-              ),
-              Switch(
-                value: isOn,
-                onChanged: (value) {
-                  isOn = value;
-                  setState(() {
-                    if (isOn) {
-                      myWidget = Container(
-                        key: ValueKey(1),
-                        width: 200,
-                        height: 100,
-                        decoration: BoxDecoration(
+        body: Column(
+          children: [
+            Flexible(
+                flex: 1,
+                child: Row(
+                  children: [
+                    Flexible(
+                        flex: 1,
+                        child: AnimatedPadding(
+                          duration: Duration(seconds: 1),
+                          padding: EdgeInsets.all(myPadding),
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                myPadding = 20;
+                              });
+                            },
+                            child: Container(
+                              color: Colors.red,
+                            ),
+                          ),
+                        )),
+                    Flexible(
+                        flex: 1,
+                        child: AnimatedPadding(
+                          duration: Duration(seconds: 1),
+                          padding: EdgeInsets.all(myPadding),
+                          child: Container(
                             color: Colors.green,
-                            border: Border.all(color: Colors.black, width: 3)),
-                      );
-                    } else {
-                      myWidget = Container(
-                        key: ValueKey(2),
-                        width: 200,
-                        height: 100,
-                        decoration: BoxDecoration(
-                            color: Colors.red,
-                            border: Border.all(color: Colors.black, width: 3)),
-                      );
-                    }
-                  });
-                },
-              )
-            ],
-          ),
+                          ),
+                        ))
+                  ],
+                )),
+            Flexible(
+                flex: 1,
+                child: Row(
+                  children: [
+                    Flexible(
+                        flex: 1,
+                        child: AnimatedPadding(
+                          duration: Duration(seconds: 1),
+                          padding: EdgeInsets.all(myPadding),
+                          child: Container(
+                            color: Colors.blue,
+                          ),
+                        )),
+                    Flexible(
+                        flex: 1,
+                        child: AnimatedPadding(
+                          duration: Duration(seconds: 1),
+                          padding: EdgeInsets.all(myPadding),
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                myPadding = 5;
+                              });
+                            },
+                            child: Container(
+                              color: Colors.yellow,
+                            ),
+                          ),
+                        ))
+                  ],
+                ))
+          ],
         ),
       ),
     );
