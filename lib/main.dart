@@ -9,29 +9,31 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TabBar myBar = TabBar(
+        indicator: BoxDecoration(
+            color: Colors.blueGrey,
+            border: Border(bottom: BorderSide(color: Colors.black))),
+        tabs: [
+          Tab(
+            icon: Icon(Icons.comment),
+            text: "Comment",
+          ),
+          Tab(
+            icon: Icon(Icons.lock),
+          )
+        ]);
     return MaterialApp(
       home: DefaultTabController(
-          length: 4,
+          length: 2,
           child: Scaffold(
             appBar: AppBar(
-              title: Text("contoh tab bar"),
-              bottom: TabBar(tabs: [
-                Tab(
-                  icon: Icon(Icons.comment),
-                  text: "Comment",
-                ),
-                Tab(
-                  child: Image(
-                      image: NetworkImage(
-                          "https://cdn.myanimelist.net/images/characters/7/441094.jpg")),
-                ),
-                Tab(
-                  icon: Icon(Icons.person),
-                ),
-                Tab(
-                  icon: Icon(Icons.lock),
-                )
-              ]),
+              title: Text("contohb bar"),
+              bottom: PreferredSize(
+                  preferredSize: Size.fromHeight(myBar.preferredSize.height),
+                  child: Container(
+                    child: myBar,
+                    color: Colors.red,
+                  )),
             ),
             body: TabBarView(
               children: [
@@ -40,12 +42,6 @@ class MyApp extends StatelessWidget {
                 ),
                 Center(
                   child: Text("ini tab 2"),
-                ),
-                Center(
-                  child: Text("ini tab 3"),
-                ),
-                Center(
-                  child: Text("ini tab 4"),
                 ),
               ],
             ),
