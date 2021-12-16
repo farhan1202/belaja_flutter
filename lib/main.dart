@@ -1,8 +1,4 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_application/Colorful_button.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,58 +12,59 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  bool isOn = false;
+  Widget myWidget = Container(
+    width: 200,
+    height: 100,
+    decoration: BoxDecoration(
+        color: Colors.red, border: Border.all(color: Colors.black, width: 3)),
+  );
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text("featured font"),
+          title: Text("animated swict"),
         ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text(
-                "contoh text 1",
-                style: TextStyle(fontSize: 20),
-              ),
-              Text(
-                "contoh text 2 small caps",
-                style: TextStyle(
-                    fontSize: 20, fontFeatures: [FontFeature.enable("smcp")]),
-              ),
-              Text(
-                "contoh text 1/2 small caps & frag",
-                style: TextStyle(fontSize: 20, fontFeatures: [
-                  FontFeature.enable("smcp"),
-                  FontFeature.enable("frac")
-                ]),
-              ),
-              Text(
-                "contoh cardo  tanpa apapun",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontFamily: "Cardo",
+              AnimatedSwitcher(
+                duration: Duration(seconds: 1),
+                child: myWidget,
+                transitionBuilder: (child, animation) => ScaleTransition(
+                  scale: animation,
+                  child: child,
                 ),
               ),
-              Text(
-                "contoh text 1/2 small caps & frag",
-                style: TextStyle(
-                    fontSize: 20,
-                    fontFamily: "Cardo",
-                    fontFeatures: [FontFeature.oldstyleFigures()]),
-              ),
-              Text(
-                "Milonga regular",
-                style: TextStyle(fontSize: 20, fontFamily: "Milonga"),
-              ),
-              Text(
-                "Milonga regular styl set 5",
-                style: TextStyle(
-                    fontSize: 30,
-                    fontFamily: "Cardo",
-                    fontFeatures: [FontFeature.stylisticSet(15)]),
-              ),
+              Switch(
+                value: isOn,
+                onChanged: (value) {
+                  isOn = value;
+                  setState(() {
+                    if (isOn) {
+                      myWidget = Container(
+                        key: ValueKey(1),
+                        width: 200,
+                        height: 100,
+                        decoration: BoxDecoration(
+                            color: Colors.green,
+                            border: Border.all(color: Colors.black, width: 3)),
+                      );
+                    } else {
+                      myWidget = Container(
+                        key: ValueKey(2),
+                        width: 200,
+                        height: 100,
+                        decoration: BoxDecoration(
+                            color: Colors.red,
+                            border: Border.all(color: Colors.black, width: 3)),
+                      );
+                    }
+                  });
+                },
+              )
             ],
           ),
         ),
