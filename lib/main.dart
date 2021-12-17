@@ -1,85 +1,66 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_application/application_color.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
-
   @override
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  TextEditingController controller = TextEditingController(text: "");
-  bool sOne = false;
-
-  void saveData() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setString("nama", controller.text);
-    pref.setBool("switch", sOne);
-  }
-
-  Future<String> getNama() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    return pref.getString("nama") ?? "No Name";
-  }
-
-  Future<bool> getSwitch() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    return pref.getBool("switch") ?? false;
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
+        home: ChangeNotifierProvider<ApplicationColor>(
+      create: (context) => ApplicationColor(),
+      child: Scaffold(
         appBar: AppBar(
-          title: Text("shared preferend"),
-        ),
-        body: Center(
-          child: Container(
-            margin: EdgeInsets.all(20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                TextField(
-                  controller: controller,
-                ),
-                Switch(
-                  value: sOne,
-                  onChanged: (value) {
-                    setState(() {
-                      sOne = value;
-                    });
-                  },
-                ),
-                RaisedButton(
-                  onPressed: () {
-                    saveData();
-                  },
-                  child: Text("Save"),
-                ),
-                RaisedButton(
-                  onPressed: () {
-                    setState(() {
-                      getNama().then((value) {
-                        controller.text = value;
-                      });
-                      getSwitch().then((value) {
-                        sOne = value;
-                      });
-                    });
-                  },
-                  child: Text("Load"),
-                ),
-              ],
+          backgroundColor: Colors.black,
+          title: Consumer<ApplicationColor>(
+            builder: (context, value, child) => Text(
+              "Provider state management",
+              style: TextStyle(
+                color: value.color,
+              ),
             ),
           ),
         ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Consumer<ApplicationColor>(
+                builder: (context, value, child) => AnimatedContainer(
+                  duration: Duration(milliseconds: 500),
+                  color: value.color,
+                  width: 100,
+                  height: 100,
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("G"),
+                  Consumer<ApplicationColor>(
+                    builder: (context, values, child) => Switch(
+                      value: values.isRed,
+                      activeColor: values.color,
+                      onChanged: (value) {
+                        values.isRed = value;
+                      },
+                    ),
+                  ),
+                  Text("R")
+                ],
+              )
+            ],
+          ),
+        ),
       ),
-    );
+    ));
   }
 }
