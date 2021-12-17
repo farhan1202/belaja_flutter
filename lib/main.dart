@@ -21,18 +21,16 @@ class MyApp extends StatelessWidget {
           )
         ],
         child: Scaffold(
-          floatingActionButton: Consumer<ProviderMoney>(
-            builder: (context, moneys, child) => Consumer<ProviderCart>(
-              builder: (context, carts, child) => FloatingActionButton(
-                onPressed: () {
-                  if (moneys.balance >= 500) {
-                    carts.quantity += 1;
-                    moneys.balance -= 500;
-                  }
-                },
-                child: Icon(Icons.add_shopping_cart),
-                backgroundColor: Colors.purple,
-              ),
+          floatingActionButton: Consumer2<ProviderMoney, ProviderCart>(
+            builder: (context, moneys, carts, child) => FloatingActionButton(
+              onPressed: () {
+                if (moneys.balance >= 500) {
+                  carts.quantity += 1;
+                  moneys.balance -= 500;
+                }
+              },
+              child: Icon(Icons.add_shopping_cart),
+              backgroundColor: Colors.purple,
             ),
           ),
           appBar: AppBar(
