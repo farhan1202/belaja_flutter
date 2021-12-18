@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/cutomProgressBar.dart';
+import 'package:provider/provider.dart';
 
 const Color firstColor = Color(0xFFF44336);
 const Color secondColor = Color(0xFF4caf50);
@@ -9,6 +11,7 @@ class ProductCard extends StatelessWidget {
   final String price;
   final String notification;
   final int quantity;
+  final int stokBarang;
   final Function onAddCartTap;
   final Function onIncTap;
   final Function onDecTap;
@@ -22,6 +25,7 @@ class ProductCard extends StatelessWidget {
       this.price = "",
       this.notification = null,
       this.quantity = 0,
+      this.stokBarang = 10,
       this.onAddCartTap,
       this.onIncTap,
       this.onDecTap});
@@ -34,7 +38,7 @@ class ProductCard extends StatelessWidget {
           padding: EdgeInsets.all(5),
           duration: Duration(milliseconds: 300),
           width: 130,
-          height: (notification != null) ? 270 : 250,
+          height: (notification != null) ? 320 : 300,
           decoration: BoxDecoration(
               boxShadow: [
                 BoxShadow(
@@ -56,7 +60,7 @@ class ProductCard extends StatelessWidget {
         ),
         Container(
           width: 150,
-          height: 250,
+          height: 300,
           decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(16),
@@ -69,33 +73,60 @@ class ProductCard extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                      width: 150,
-                      height: 100,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(16),
-                              topRight: Radius.circular(16)),
-                          image: DecorationImage(
-                              image: NetworkImage(imageUrl),
-                              fit: BoxFit.cover))),
-                  Container(
-                    margin: EdgeInsets.all(5),
-                    child: Text(
-                      name,
-                      style: textStyle,
+              ChangeNotifierProvider<BarState>(
+                create: (context) => BarState(),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                        width: 150,
+                        height: 100,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(16),
+                                topRight: Radius.circular(16)),
+                            image: DecorationImage(
+                                image: NetworkImage(imageUrl),
+                                fit: BoxFit.cover))),
+                    Container(
+                      margin: EdgeInsets.all(5),
+                      child: Text(
+                        name,
+                        style: textStyle,
+                        maxLines: 1,
+                      ),
                     ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.all(5),
-                    child: Text(price,
-                        style: textStyle.copyWith(
-                            fontSize: 12, color: firstColor)),
-                  )
-                ],
+                    Container(
+                      margin: EdgeInsets.all(5),
+                      child: Text(price,
+                          style: textStyle.copyWith(
+                              fontSize: 12, color: firstColor)),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 10, left: 5),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.add_shopping_cart,
+                            size: 20,
+                            color: Colors.grey[500],
+                          ),
+                          Text(quantity.toString() + " / 10")
+                        ],
+                      ),
+                    ),
+                    Consumer<BarState>(
+                      builder: (context, value, child) => Container(
+                        margin: EdgeInsets.only(top: 10),
+                        child: CustomProgressBar(
+                          width: 140,
+                          totalValue: value.bar,
+                          value: value.bar - quantity,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
               Column(
                 children: [
