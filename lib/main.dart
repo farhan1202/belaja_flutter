@@ -1,10 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_application/colorBloc.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'dart:math';
 
-void main() async {
-  BlocSupervisor.delegate = await HydratedBlocDelegate.build();
+import 'package:flutter/material.dart';
+import 'package:flutter_application/ProductBloc.dart';
+import 'package:flutter_application/productCard.dart';
+import 'package:flutter_application/productState.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
+
+void main() {
   runApp(MyApp());
 }
 
@@ -12,49 +15,66 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home:
-            BlocProvider(create: (context) => ColorBloc(), child: HomePage()));
+        debugShowCheckedModeBanner: false,
+        home: BlocProvider(
+            create: (context) => ProductBloc(), child: MainMenu()));
   }
 }
 
-class HomePage extends StatelessWidget {
+class MainMenu extends StatelessWidget {
+  final Random r = Random();
   @override
   Widget build(BuildContext context) {
-    ColorBloc bloc = BlocProvider.of<ColorBloc>(context);
+    ProductBloc bloc = BlocProvider.of<ProductBloc>(context);
     return Scaffold(
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          FloatingActionButton(
-            onPressed: () {
-              bloc.add(ColorEvent.toAmber);
-            },
-            backgroundColor: Colors.amber,
-          ),
-          SizedBox(
-            width: 10,
-          ),
-          FloatingActionButton(
-            onPressed: () {
-              bloc.add(ColorEvent.toLightBlue);
-            },
-            backgroundColor: Colors.lightBlue,
-          )
-        ],
-      ),
-      appBar: AppBar(
-        title: Text("Bloc dengan pluggin"),
-      ),
-      body: Center(
-        child: BlocBuilder<ColorBloc, Color>(
-          builder: (context, state) => AnimatedContainer(
-            duration: Duration(milliseconds: 500),
-            color: state,
-            width: 150,
-            height: 150,
-          ),
+        appBar: AppBar(
+          title: Text("List View Builder"),
         ),
-      ),
-    );
+        body: Column(
+          children: [
+            RaisedButton(
+              child: Text("Create Product"),
+              onPressed: () {
+                bloc.add(r.nextInt(4) + 2);
+              },
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            BlocBuilder<ProductBloc, List<Product>>(
+              builder: (context, state) => Expanded(
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: state.length,
+                  itemBuilder: (context, index) {
+                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        (index == 0)
+                            ? SizedBox(
+                                width: 20,
+                              )
+                            : Container(),
+                        ProductCard(
+                          imageUrl: state[index].imageUrl,
+                          name: state[index].name,
+                          price: state[index].price.toString(),
+                          notification: "diskon 10%",
+                          quantity: 0,
+                          onAddCartTap: () {},
+                          onIncTap: () {},
+                          onDecTap: () {},
+                        ),
+                        SizedBox(
+                          width: 20,
+                        )
+                      ],
+                    );
+                  },
+                ),
+              ),
+            )
+          ],
+        ));
   }
 }
