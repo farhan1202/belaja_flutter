@@ -1,29 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application/bloc/ColorBloc.dart';
-import 'package:flutter_application/bloc/CounterBloc.dart';
-import 'package:flutter_application/ui/MainPage.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'Controller/CounterController.dart';
+import 'ui/HomePage.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  final counterC = Get.put(CounterController());
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<ColorBloc>(
-          create: (context) => ColorBloc(),
-        ),
-        BlocProvider<CounterBloc>(
-          create: (context) => CounterBloc(),
-        ),
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: MainPage(),
-      ),
-    );
+    return Obx(() => GetMaterialApp(
+          home: HomePage(),
+          theme: counterC.isDark.value ? ThemeData.dark() : ThemeData.light(),
+        ));
   }
 }
