@@ -1,3 +1,4 @@
+import 'package:flutter_application/bindings/countBinding.dart';
 import 'package:flutter_application/routes/app_route.dart';
 import 'package:flutter_application/ui/PageDua.dart';
 import 'package:flutter_application/ui/PageSatu.dart';
@@ -13,6 +14,7 @@ class AppPage {
     GetPage(
       name: Routes.page2,
       page: () => PageDua(),
+      binding: CountBinding(),
     ),
     GetPage(
       name: Routes.page3,
