@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/routes/app_page.dart';
 import 'package:flutter_application/routes/app_route.dart';
+import 'package:flutter_application/translations/translation.dart';
 import 'package:flutter_application/ui/PageSatu.dart';
 import 'package:get/get.dart';
 
@@ -15,6 +16,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: Routes.home,
       getPages: AppPage.pages,
+      translations: AppTranslation(),
+      locale: Locale('en'),
     );
   }
 }

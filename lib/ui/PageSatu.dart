@@ -7,18 +7,33 @@ class PageSatu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Page Satu"),
+        title: Text("title".tr),
+        actions: [
+          IconButton(
+            onPressed: () => Get.updateLocale(Locale('id')),
+            icon: Icon(Icons.language),
+          ),
+        ],
       ),
       body: Center(
-        child: ElevatedButton(
-            //passing argument
-            // onPressed: () async {
-            //   var data =
-            //       await Get.to(PageDua(), arguments: "Ini dari page satu");
-            //   print(data);
-            // },
-            onPressed: () => Get.toNamed(Routes.page2),
-            child: Text("Next Page")),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("body".tr),
+            SizedBox(
+              height: 10,
+            ),
+            ElevatedButton(
+                //passing argument
+                // onPressed: () async {
+                //   var data =
+                //       await Get.to(PageDua(), arguments: "Ini dari page satu");
+                //   print(data);
+                // },
+                onPressed: () => Get.toNamed(Routes.page2),
+                child: Text("Next Page")),
+          ],
+        ),
       ),
     );
   }
