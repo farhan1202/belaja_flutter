@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/routes/app_route.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class PageDua extends StatelessWidget {
   @override
@@ -8,26 +9,14 @@ class PageDua extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Page Dua"),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-                onPressed: () {
-                  Get.toNamed(Routes.page3);
-                },
-                child: Text("Next Page")),
-            SizedBox(
-              height: 20,
-            ),
-            ElevatedButton(
-                onPressed: () {
-                  Get.back();
-                },
-                child: Text("Back Page")),
-          ],
-        ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Get.offAllNamed(Routes.home);
+                GetStorage().write('isLogin', false);
+              },
+              icon: Icon(Icons.door_back_door))
+        ],
       ),
     );
   }
